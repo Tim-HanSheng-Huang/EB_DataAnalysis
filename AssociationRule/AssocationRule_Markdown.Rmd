@@ -1,0 +1,82 @@
+---
+title: "Association Rule"
+output:
+  html_document:
+    df_print: paged
+---
+
+## Import library
+```{r}
+if(!require(arules)){install.packages("arules")}
+library(arules)
+if(!require(arulesViz)){install.packages("arulesViz")} 
+library("arulesViz")
+library(graphics)
+```
+
+## Load R built-in dataset HairEyeColor 
+```{r}
+data(HairEyeColor)  
+str(HairEyeColor)
+```
+
+## Draw mosai plot
+```{r}
+mosaicplot(HairEyeColor, main = "Hair Eye Color Mosaiplot")
+```
+
+## Transfer the datset into 592*3 dataframe
+```{r}
+df=as.data.frame(HairEyeColor) 
+HairEyeColorData=NULL
+for (i in 1:3) HairEyeColorData=cbind(HairEyeColorData,rep(as.character(df[,i]),df$Freq))
+HairEyeColorData=as.data.frame(HairEyeColorData)  
+names(HairEyeColorData)=names(df)[1:3]
+summary(HairEyeColorData)
+head(HairEyeColorData) 
+```
+
+## Find frequen items by eclat function
+```{r}
+eclat_FrequentItems <- eclat(HairEyeColorData, parameter=list(minlen=1, maxlen=3, sup=0.2, target="frequent itemsets"))
+inspect(eclat_FrequentItems) 
+```
+
+## Get the rule by apriori function
+```{r}
+rule <- apriori(HairEyeColorData,
+                parameter=list(minlen=3, supp=0.01, conf=0.5),  
+                appearance = list(default="lhs",rhs=c("Sex=Male", "Sex=Female")))  
+```
+
+## Sort the rules by lift
+```{r}
+rulesort=sort(rule,by="lift")
+inspect(rulesort)
+
+```
+
+## Remove redundant rules
+```{r}
+subset.matrix=is.subset(rulesort,rulesort)
+redundant=colSums(subset.matrix) > 1 ; which(redundant)
+rulepruned=rulesort[!redundant] ; inspect(rulepruned)
+```
+
+# Visualization
+```{r}
+library(arulesViz)
+plot(rulepruned,jitter=0) # Heat map
+```
+
+```{r}
+plot(rulepruned,method="grouped") # Balloon plot
+```
+
+```{r}
+plot(rulepruned,method="graph",control=list(type="items"))  # Network graph 
+```
+
+```{r}
+plot(rulepruned, method = "paracoord", control = list(reorder = TRUE)) # Parallel coordinates plot
+```
