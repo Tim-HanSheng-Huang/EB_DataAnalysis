@@ -1,14 +1,12 @@
 ## Clustering by R  
-Trying to do association rule analysis for R built-in dataset: HairEyeColor
+Trying to do clustering for animals.csv dataset.
 
-Scatter Plot:  
-![image](https://github.com/Tim-HanSheng-Huang/EB_DataAnalysis/blob/main/AssociationRule/ScatterPlot.png)  
+HAC Clustering:  
+![image](https://github.com/Tim-HanSheng-Huang/EB_DataAnalysis/blob/main/Clustering/Clustering_HAC.png)  
 
-Grouped Matrix:  
-![image](https://github.com/Tim-HanSheng-Huang/EB_DataAnalysis/blob/main/AssociationRule/GroupedMatrix.png)  
+K-Means Clustering:  
+![image](https://github.com/Tim-HanSheng-Huang/EB_DataAnalysis/blob/main/Clustering/Clustering_Kmeans.png)  
 
-Network Graph:  
-![image](https://github.com/Tim-HanSheng-Huang/EB_DataAnalysis/blob/main/AssociationRule/NetworkGraph.png)  
+Elbow Method for Optimal Number of Clusters:  
+![image](https://github.com/Tim-HanSheng-Huang/EB_DataAnalysis/blob/main/Clustering/Elbow.png)  
 
-Parallel Coordinates Plot:  
-![image](https://github.com/Tim-HanSheng-Huang/EB_DataAnalysis/blob/main/AssociationRule/ParallelCoordinatesPlot.png)  
